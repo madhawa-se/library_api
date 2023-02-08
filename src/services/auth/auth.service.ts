@@ -8,6 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
+
     constructor(private userService:UserService,private jwtService:JwtService){
 
     }
@@ -20,19 +21,19 @@ export class AuthService {
     async register(registrationData: RegisterUserDto) {
         const userExist = await this.userService.doesUserExist(registrationData.email);
         if (userExist) {
-            return { status: false, error: "User already exists" }
+            throw new Error('User already exists');
         } else {
             const saveResponse = await this.userService.saveUser(registrationData);
             if (saveResponse) {
                 return { status: true };
             } else {
-                return { status: false };
+                throw new Error('Failed to signup');
             }
         }
     }
 
     async genToken(user: User) {
-        const payload = { username: user.email, sub: user.userId };
+        const payload = { username: user.email, sub: user.userId,role:user.role };
         const access_token = this.jwtService.sign(payload);
         return access_token;
     }

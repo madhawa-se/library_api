@@ -1,7 +1,8 @@
-import { BeforeInsert, Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Admin } from "./Admin.entity";
 import { Member } from "./Member.entity";
 import * as bcrypt from 'bcrypt';
+import { Borrow } from "./Borrow.entity";
 
 @Entity("user", { schema: "book_library" })
 export class User {
@@ -17,6 +18,9 @@ export class User {
   @Column("varchar", { name: "firstName", nullable: true, length: 45 })
   firstName: string | null;
 
+  @Column("varchar", { name: "role", nullable: true, length: 45 })
+  role: string | null;
+
   @Column("varchar", { name: "lastName", nullable: true, length: 45 })
   lastName: string | null;
 
@@ -28,6 +32,9 @@ export class User {
 
   @OneToOne(() => Member, (member) => member.user)
   member: Member;
+
+  @OneToMany(() => Borrow, (borrow) => borrow.member)
+  borrows: Borrow[];
 
   @BeforeInsert() async hashPassword() {
     const saltRounds = 10;

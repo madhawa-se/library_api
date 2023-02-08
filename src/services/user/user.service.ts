@@ -10,6 +10,7 @@ export class UserService {
     async saveUser(registrationData: RegisterUserDto) {
         const user = new User();
         user.email = registrationData.email;
+        user.role = "member";//admin
         // user.name = registrationData.name;
         user.password = registrationData.password;
         const savedUser = await this.userRepo.save(user);
@@ -47,4 +48,13 @@ export class UserService {
         }
 
     }
+
+
+    async getProfile(id){
+        const user = await this.userRepo.findOne({
+            where: { userId: id }
+        });
+        return user;
+    }
+
 }

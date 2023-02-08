@@ -9,6 +9,6 @@ export class Genre {
   @Column("varchar", { name: "name", nullable: true, length: 45 })
   name: string | null;
 
-  @OneToMany(() => Book, (book) => book.genre_2)
+  @OneToMany(() => Book, (book) => book.genre)
   books: Book[];
 }

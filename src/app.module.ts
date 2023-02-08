@@ -21,6 +21,8 @@ import { AuthController } from './auth/auth.controller';
 import { CategoryController } from './category/category.controller';
 import { CategoryService } from './services/category/category.service';
 import { Genre } from './models/Genre.entity';
+import { MembersController } from './members/members.controller';
+import { MembersService } from './members/members.service';
 
 
 @Module({
@@ -42,8 +44,8 @@ import { Genre } from './models/Genre.entity';
       signOptions: { expiresIn: '60000000s' },
     })
   ],
-  controllers: [AppController, BookController, AutherController,AuthController, CategoryController],
-  providers: [AppService, BookService, AutherService, AuthService, JwtStrategyService, UserService, CategoryService],
+  controllers: [AppController, BookController, AutherController,AuthController, CategoryController, MembersController],
+  providers: [AppService, BookService, AutherService, AuthService, JwtStrategyService, UserService, CategoryService, MembersService],
 })
 export class AppModule {
 

@@ -24,8 +24,8 @@ export class Book {
   @Column("varchar", { name: "name", nullable: true, length: 100 })
   name: string | null;
 
-  @Column("varchar", { name: "genre", nullable: true, length: 45 })
-  genre: string | null;
+  @Column("varchar", { name: "description", nullable: true, length: 45 })
+  description: string | null;
 
   @Column("int", { name: "amount", nullable: true })
   amount: number | null;
@@ -48,7 +48,7 @@ export class Book {
     onUpdate: "NO ACTION",
   })
   @JoinColumn([{ name: "genre_id", referencedColumnName: "genreId" }])
-  genre_2: Genre;
+  genre: Genre;
 
   @OneToMany(() => Borrow, (borrow) => borrow.book)
   borrows: Borrow[];
